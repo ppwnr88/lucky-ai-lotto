@@ -34,9 +34,16 @@ export default function HomePage() {
         | GenerateLuckyResponse
         | GenerateLuckyErrorResponse;
 
-      if (!response.ok || !json.success) {
+      if (!response.ok) {
+        const errorJson = json as GenerateLuckyErrorResponse;
+        throw new Error(errorJson.message || "Generate failed");
+      }
+
+      if (!json.success) {
         throw new Error(json.message || "Generate failed");
       }
+
+      setResult(json.data);
 
       setResult(json.data);
     } catch (err) {
