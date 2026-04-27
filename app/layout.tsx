@@ -7,6 +7,9 @@ export const metadata:Metadata = {
   description:
     "ทำนายเลขเด็ดจากความฝันด้วย AI วิเคราะห์ข้อความและสร้างเลข 2-3 ตัวแบบสนุก ๆ",
   keywords: ["เลขเด็ด", "ฝัน", "หวย", "ทำนายฝัน", "เลขนำโชค"],
+  icons: {
+    icon: "/icon",
+  },
 };
 
 export default function RootLayout({
