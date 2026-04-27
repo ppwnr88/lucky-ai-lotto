@@ -16,7 +16,12 @@ export const captions: string[] = [
   "อย่าคิดเยอะ เอาเลขไปลุยเลย 🔥"
 ];
 
+export const DEFAULT_CAPTION =
+  "โชคดีมีชัย โชคชัยมีวัว 🐄";
+
 export function getRandomCaption(): string {
+  if (!captions.length) return DEFAULT_CAPTION;
+
   const index = Math.floor(Math.random() * captions.length);
-  return captions[index];
+  return captions[index] || DEFAULT_CAPTION;
 }

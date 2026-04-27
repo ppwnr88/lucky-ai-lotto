@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { callOpenRouter } from "@/lib/openrouter";
 import { getRandomCaption } from "@/lib/captions";
+import { createFallbackLuckyResult } from "@/lib/fallback-lucky";
 
 const requestSchema = z.object({
   text: z
@@ -34,16 +35,25 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { text } = requestSchema.parse(body);
 
-    const aiContent = await callOpenRouter(text);
-    const parsed = luckyResultSchema.parse(extractJson(aiContent));
+    try {
+      const aiContent = await callOpenRouter(text);
+      const parsed = luckyResultSchema.parse(extractJson(aiContent));
 
-    return NextResponse.json({
-      success: true,
-      data: {
-        ...parsed,
-        caption: parsed.caption || getRandomCaption(),
-      },
-    });
+      return NextResponse.json({
+        success: true,
+        data: {
+          ...parsed,
+          caption: parsed.caption || getRandomCaption(),
+        },
+      });
+    } catch (aiError) {
+      console.warn("AI fallback used:", aiError);
+
+      return NextResponse.json({
+        success: true,
+        data: createFallbackLuckyResult(text),
+      });
+    }
   } catch (error) {
     console.error("Generate lucky number error:", error);
 
@@ -55,7 +65,7 @@ export async function POST(request: Request) {
             ? error.message
             : "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
       },
-      { status: 500 }
+      { status: 400 }
     );
   }
 }
