@@ -44,8 +44,6 @@ export default function HomePage() {
       }
 
       setResult(json.data);
-
-      setResult(json.data);
     } catch (err) {
       setError(
         err instanceof Error
