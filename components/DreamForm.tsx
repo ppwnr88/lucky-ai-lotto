@@ -19,6 +19,7 @@ export default function DreamForm({ onSubmit, loading }: Props) {
         placeholder="เช่น ฝันว่าขับรถแล้วเบรคไม่อยู่..."
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onInput={(e) => setText(e.currentTarget.value)}
       />
 
       <div className="relative mt-4">
