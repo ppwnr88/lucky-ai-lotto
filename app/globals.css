@@ -437,13 +437,13 @@ html {
 @keyframes fortune-orbit-number {
   0%,
   100% {
-    transform: rotate(var(--angle)) translateX(clamp(6.4rem, 19vw, 11rem))
+    transform: rotate(var(--angle)) translateX(clamp(5.4rem, 15vw, 8.8rem))
       rotate(var(--counter-angle)) scale(0.88);
     opacity: 0.7;
   }
   50% {
     transform: rotate(calc(var(--angle) + 16deg))
-      translateX(clamp(7.2rem, 22vw, 12.4rem)) rotate(var(--counter-angle))
+      translateX(clamp(6rem, 17vw, 9.8rem)) rotate(var(--counter-angle))
       scale(1.12);
     opacity: 1;
   }
@@ -503,11 +503,11 @@ html {
 @keyframes fortune-crystal-numbers {
   0%,
   100% {
-    transform: translateY(0) scale(1);
+    transform: translate(-50%, 0) scale(1);
     opacity: 0.72;
   }
   50% {
-    transform: translateY(-6px) scale(1.08);
+    transform: translate(-50%, -3px) scale(1.04);
     opacity: 1;
   }
 }
@@ -730,6 +730,10 @@ html {
 }
 
 .fortune-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.75rem, 2.2dvh, 1.35rem);
   box-shadow:
     0 0 0 1px rgba(250, 204, 21, 0.16) inset,
     0 44px 120px rgba(0, 0, 0, 0.55),
@@ -778,13 +782,27 @@ html {
 }
 
 .fortune-oracle {
-  min-height: clamp(20rem, 51dvh, 31rem);
+  align-content: center;
+  min-height: clamp(21rem, 49dvh, 31rem);
+}
+
+.fortune-witch-row {
+  display: grid;
+  min-height: clamp(5.5rem, 12dvh, 8.8rem);
+  place-items: end center;
+  pointer-events: none;
+}
+
+.fortune-crystal-zone {
+  height: clamp(15.5rem, 34dvh, 24rem);
+  margin-top: clamp(-1.7rem, -2.5dvh, -0.8rem);
+  width: min(100%, 34rem);
 }
 
 .fortune-halo {
   position: absolute;
-  height: clamp(13rem, 34vw, 23rem);
-  width: clamp(13rem, 34vw, 23rem);
+  height: clamp(11rem, 28vw, 19rem);
+  width: clamp(11rem, 28vw, 19rem);
   border-radius: 9999px;
   background:
     radial-gradient(circle, rgba(250, 204, 21, 0.22), transparent 58%),
@@ -799,14 +817,14 @@ html {
 }
 
 .fortune-rune-ring-outer {
-  height: clamp(15.5rem, 42vw, 27rem);
-  width: clamp(15.5rem, 42vw, 27rem);
+  height: clamp(13rem, 32vw, 21rem);
+  width: clamp(13rem, 32vw, 21rem);
   animation: fortune-rune-ring 12s linear infinite;
 }
 
 .fortune-rune-ring-inner {
-  height: clamp(10.5rem, 30vw, 19rem);
-  width: clamp(10.5rem, 30vw, 19rem);
+  height: clamp(9.25rem, 23vw, 15rem);
+  width: clamp(9.25rem, 23vw, 15rem);
   border-color: rgba(52, 211, 153, 0.52);
   animation: fortune-rune-ring-inner 8s linear infinite;
 }
@@ -817,7 +835,6 @@ html {
 }
 
 .fortune-witch {
-  margin-bottom: clamp(5.7rem, 13vw, 8rem);
   animation: fortune-witch 2.1s ease-in-out infinite;
 }
 
@@ -825,8 +842,8 @@ html {
   position: absolute;
   left: 50%;
   top: clamp(-1.1rem, -2vw, -0.7rem);
-  height: clamp(2.6rem, 8vw, 4.8rem);
-  width: clamp(5rem, 15vw, 8.2rem);
+  height: clamp(2.1rem, 5.8vw, 3.8rem);
+  width: clamp(4.3rem, 11vw, 6.8rem);
   clip-path: polygon(50% 0, 0 100%, 100% 100%);
   background: linear-gradient(160deg, #050505, #064e3b 58%, #facc15 59% 68%, #050505 70%);
   filter: drop-shadow(0 0 16px rgba(250, 204, 21, 0.36));
@@ -834,7 +851,7 @@ html {
 }
 
 .fortune-face {
-  font-size: clamp(4.3rem, 13vw, 8.5rem);
+  font-size: clamp(3.8rem, 9vw, 6.6rem);
   line-height: 1;
   filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.42));
 }
@@ -844,14 +861,14 @@ html {
   left: 50%;
   bottom: clamp(-1.2rem, -2vw, -0.8rem);
   display: flex;
-  width: clamp(8rem, 22vw, 13rem);
+  width: clamp(7rem, 17vw, 10.5rem);
   transform: translateX(-50%);
   justify-content: space-between;
 }
 
 .fortune-hands span {
-  height: clamp(2rem, 5vw, 3.2rem);
-  width: clamp(1rem, 3vw, 1.6rem);
+  height: clamp(1.6rem, 4vw, 2.6rem);
+  width: clamp(0.85rem, 2.2vw, 1.35rem);
   border-radius: 9999px;
   background: linear-gradient(#fef3c7, #f59e0b);
   box-shadow: 0 0 20px rgba(250, 204, 21, 0.35);
@@ -868,9 +885,8 @@ html {
 }
 
 .fortune-crystal {
-  margin-top: clamp(-6.8rem, -12vw, -4.8rem);
-  height: clamp(8rem, 22vw, 14rem);
-  width: clamp(8rem, 22vw, 14rem);
+  height: clamp(7.5rem, 18vw, 12.25rem);
+  width: clamp(7.5rem, 18vw, 12.25rem);
   overflow: hidden;
   border-radius: 9999px;
   border: 2px solid rgba(254, 240, 138, 0.55);
@@ -895,22 +911,36 @@ html {
 .fortune-crystal-core {
   position: relative;
   z-index: 1;
-  font-size: clamp(3.2rem, 10vw, 6rem);
+  font-size: clamp(3rem, 8vw, 5.2rem);
   line-height: 1;
 }
 
 .fortune-crystal-numbers {
   position: absolute;
-  inset: 0;
+  bottom: clamp(-1.25rem, -2.4vw, -0.85rem);
+  left: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.4rem, 1.6vw, 1rem);
+  gap: clamp(0.35rem, 1.2vw, 0.7rem);
+  transform: translateX(-50%);
   color: #fef08a;
-  font-size: clamp(1.8rem, 5.5vw, 3.6rem);
+  font-size: clamp(1.25rem, 3vw, 2rem);
   font-weight: 900;
-  text-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.9);
   animation: fortune-crystal-numbers 0.9s ease-in-out infinite;
+}
+
+.fortune-crystal-numbers span {
+  display: grid;
+  min-width: clamp(1.75rem, 4vw, 2.7rem);
+  place-items: center;
+  border: 1px solid rgba(250, 204, 21, 0.58);
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.72);
+  box-shadow:
+    0 0 20px rgba(250, 204, 21, 0.32),
+    inset 0 0 12px rgba(250, 204, 21, 0.14);
 }
 
 .fortune-crystal-numbers span:nth-child(2) {
@@ -927,18 +957,36 @@ html {
   animation: fortune-progress 0.74s ease-in-out infinite;
 }
 
+.fortune-copy {
+  margin-top: clamp(-0.5rem, -1dvh, 0rem);
+}
+
 @media (max-width: 640px) {
   .fortune-table {
-    min-height: min(78dvh, 42rem);
+    gap: clamp(0.5rem, 1.6dvh, 0.9rem);
+    min-height: min(82dvh, 42rem);
     border-radius: 1.5rem;
   }
 
   .fortune-oracle {
-    min-height: clamp(18rem, 48dvh, 25rem);
+    min-height: clamp(18.75rem, 45dvh, 24rem);
+  }
+
+  .fortune-witch-row {
+    min-height: clamp(4.9rem, 11dvh, 6.6rem);
+  }
+
+  .fortune-crystal-zone {
+    height: clamp(13.5rem, 32dvh, 17rem);
+    margin-top: -1.3rem;
   }
 
   .fortune-orbit-number {
     padding: 0.2rem 0.55rem;
+  }
+
+  .fortune-card {
+    display: none;
   }
 }
 

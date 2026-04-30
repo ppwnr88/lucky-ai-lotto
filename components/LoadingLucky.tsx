@@ -1,7 +1,27 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { useMemo, type CSSProperties } from "react";
+
+function createOrbitNumbers() {
+  const numbers = new Set<string>();
+
+  while (numbers.size < 8) {
+    const isThreeDigit = numbers.size === 5 || Math.random() > 0.72;
+    const max = isThreeDigit ? 1000 : 100;
+    const value = Math.floor(Math.random() * max);
+    numbers.add(value.toString().padStart(isThreeDigit ? 3 : 2, "0"));
+  }
+
+  return Array.from(numbers);
+}
+
+function createCrystalNumbers() {
+  return Array.from({ length: 3 }, () => Math.floor(Math.random() * 10).toString());
+}
 
 export default function LoadingLucky() {
-  const orbitNumbers = ["09", "24", "56", "78", "123", "789", "19", "88"];
+  const orbitNumbers = useMemo(() => createOrbitNumbers(), []);
+  const crystalNumbers = useMemo(() => createCrystalNumbers(), []);
   const runes = ["✦", "✧", "☾", "✺", "✷", "✹", "✦", "☽", "✧", "✺"];
   const cards = ["โชค", "ฝัน", "ดวง"];
   const mist = Array.from({ length: 7 }, (_, index) => index);
@@ -85,47 +105,52 @@ export default function LoadingLucky() {
           ))}
 
           <div className="fortune-oracle relative grid w-full max-w-3xl place-items-center">
-            <div className="fortune-halo" aria-hidden="true" />
-            <div className="fortune-rune-ring fortune-rune-ring-outer" aria-hidden="true" />
-            <div className="fortune-rune-ring fortune-rune-ring-inner" aria-hidden="true" />
-
-            {orbitNumbers.map((number, index) => (
-              <span
-                key={number}
-                className="fortune-orbit-number absolute rounded-full border border-yellow-300/40 bg-black/75 px-3 py-1 text-sm font-black text-yellow-200 shadow-xl shadow-yellow-300/20 sm:text-base"
-                style={
-                  {
-                    "--angle": `${index * 45}deg`,
-                    "--counter-angle": `${index * -45}deg`,
-                    "--delay": `${index * 0.09}s`,
-                  } as CSSProperties
-                }
-              >
-                {number}
-              </span>
-            ))}
-
-            <div className="fortune-witch relative z-10" aria-hidden="true">
-              <div className="fortune-hat" />
-              <div className="fortune-face">🧙‍♀️</div>
-              <div className="fortune-hands">
-                <span />
-                <span />
+            <div className="fortune-witch-row relative z-30">
+              <div className="fortune-witch relative" aria-hidden="true">
+                <div className="fortune-hat" />
+                <div className="fortune-face">🧙‍♀️</div>
+                <div className="fortune-hands">
+                  <span />
+                  <span />
+                </div>
               </div>
             </div>
 
-            <div className="fortune-crystal relative z-20 grid place-items-center">
-              <div className="fortune-crystal-shine" aria-hidden="true" />
-              <div className="fortune-crystal-core">🔮</div>
+            <div className="fortune-crystal-zone relative z-20 grid place-items-center">
+              <div className="fortune-halo" aria-hidden="true" />
+              <div className="fortune-rune-ring fortune-rune-ring-outer" aria-hidden="true" />
+              <div className="fortune-rune-ring fortune-rune-ring-inner" aria-hidden="true" />
+
+              {orbitNumbers.map((number, index) => (
+                <span
+                  key={`${number}-${index}`}
+                  className="fortune-orbit-number absolute rounded-full border border-yellow-300/40 bg-black/75 px-3 py-1 text-sm font-black text-yellow-200 shadow-xl shadow-yellow-300/20 sm:text-base"
+                  style={
+                    {
+                      "--angle": `${index * 45}deg`,
+                      "--counter-angle": `${index * -45}deg`,
+                      "--delay": `${index * 0.09}s`,
+                    } as CSSProperties
+                  }
+                >
+                  {number}
+                </span>
+              ))}
+
+              <div className="fortune-crystal relative z-20 grid place-items-center">
+                <div className="fortune-crystal-shine" aria-hidden="true" />
+                <div className="fortune-crystal-core">🔮</div>
+              </div>
+
               <div className="fortune-crystal-numbers" aria-hidden="true">
-                <span>7</span>
-                <span>9</span>
-                <span>5</span>
+                {crystalNumbers.map((number, index) => (
+                  <span key={`${number}-${index}`}>{number}</span>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="relative z-20 mt-3 max-w-2xl">
+          <div className="fortune-copy relative z-20 max-w-2xl">
             <p className="text-[clamp(1.7rem,5vw,3.5rem)] font-black leading-tight text-yellow-100 drop-shadow-[0_0_18px_rgba(250,204,21,0.45)]">
               แม่มดกำลังเปิดคำทำนาย...
             </p>
